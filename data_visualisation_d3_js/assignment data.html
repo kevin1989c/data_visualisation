@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="d3.js"></script>
+<h ></h>
+<style type="text/css">
+.axis path,
+.axis line {
+    fill: none;
+    stroke: red;
+    shape-rendering: crispEdges;
+    opacity:0.4;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+.xytextset{
+font-size: 16px;
+fill: crimson
+
+}
+.tooltip{
+position: absolute;
+width: 120;
+height: auto;
+font-family: simsun;
+font-size: 14px;
+text-align: center;
+border-style: solid; 
+border-width: 1px;
+background-color: white;
+border-radius: 5px;
+}
+</style>
+     </head>
+     <body>
+        <script type="text/javascript">
+  
+
+
+d3.csv("combined.csv", function(data){
+console.log(data);
+var w = 1000;
+var h =400;
+var padding=60;
+var yearnumber=1985;
+var tooltip = d3.select("body")
+.append("div")
+.attr("class","tooltip")
+.style("opacity",0.0);
+
+var svg = d3.select("body").append("svg")
+             .attr("width", w)
+             .attr("height", h);
+
+var rScale = d3.scale.linear()
+               .domain([0, 180000])
+               .range([2,8])
+var xScale = d3.scale.linear()
+              .domain([0, 180000])
+                  .range([padding, w-padding]);
+               
+var yScale = d3.scale.linear()
+              .domain([0, 220000])
+                    .range([h-padding, padding]);
+
+var xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom");       
+var yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left")
+                  .ticks(5);         
+
+				  
+var circleplace=svg.append("g");
+    var circle = circleplace.selectAll("circle")
+   .data(data)
+   .enter()
+   .append("circle")
+   .attr("cx", function(d) {
+   return xScale(d.x2011);
+})
+   .attr("cy",function(d) {
+       return yScale(d.y2011);
+})
+ .attr("r",function(d){return rScale(d.x2011)})
+   .attr("fill", "white")
+   .style("opacity",1.0);
+
+		   
+	  
+
+
+
+ 
+
+   
+circle.transition()
+   .duration(6000)
+   .ease("elastic")
+   .attr("fill","red")
+    .transition()
+   .duration(6000)
+   .ease("elastic")
+    .attr("fill","steelblue")
+	    .transition()
+   .duration(6000)
+   .ease("elastic")
+    .attr("fill","orange");
+
+
+ svg.append("text")
+	.attr("x", 20)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1985);}).attr("cy",function(d) {return yScale(d.y1985);})
+		  
+		 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1985,d.y1985]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1985+"<br/>"+"articles published number: "+d.y1985 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		
+	
+	})
+	.text(yearnumber);
+	
+	svg.append("text")
+	.attr("x", 60)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1986);}).attr("cy",function(d) {return yScale(d.y1986);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1986,d.y1986]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1986+"<br/>"+"articles published number: "+d.y1986 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+
+	 svg.append("text")
+	.attr("x", 100)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1987);}).attr("cy",function(d) {return yScale(d.y1987);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1987,d.y1987]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1987+"<br/>"+"articles published number: "+d.y1987 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 140)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1988);}).attr("cy",function(d) {return yScale(d.y1988);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1988,d.y1988]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1988+"<br/>"+"articles published number: "+d.y1988 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 180)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1989);}).attr("cy",function(d) {return yScale(d.y1989);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1989,d.y1989]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1989+"<br/>"+"articles published number: "+d.y1989 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 220)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1990);}).attr("cy",function(d) {return yScale(d.y1990);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1990,d.y1990]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1990+"<br/>"+"articles published number: "+d.y1990 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 260)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1991);}).attr("cy",function(d) {return yScale(d.y1991);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1991,d.y1991]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1991+"<br/>"+"articles published number: "+d.y1991 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 300)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1992);}).attr("cy",function(d) {return yScale(d.y1992);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1992,d.y1992]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1992+"<br/>"+"articles published number: "+d.y1992 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 340)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1993);}).attr("cy",function(d) {return yScale(d.y1993);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1993,d.y1993]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1993+"<br/>"+"articles published number: "+d.y1993 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 380)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1994);}).attr("cy",function(d) {return yScale(d.y1994);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1994,d.y1994]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1994+"<br/>"+"articles published number: "+d.y1994 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 420)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1995);}).attr("cy",function(d) {return yScale(d.y1995);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1995,d.y1995]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1995+"<br/>"+"articles published number: "+d.y1995 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 460)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1996);}).attr("cy",function(d) {return yScale(d.y1996);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1996,d.y1996]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1996+"<br/>"+"articles published number: "+d.y1996 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 500)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1997);}).attr("cy",function(d) {return yScale(d.y1997);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1997,d.y1997]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1997+"<br/>"+"articles published number: "+d.y1997 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 540)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1998);}).attr("cy",function(d) {return yScale(d.y1998);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1998,d.y1998]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1998+"<br/>"+"articles published number: "+d.y1998 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 580)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x1999);}).attr("cy",function(d) {return yScale(d.y1999);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x1999,d.y1999]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x1999+"<br/>"+"articles published number: "+d.y1999 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 620)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2000);}).attr("cy",function(d) {return yScale(d.y2000);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2000,d.y2000]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2000+"<br/>"+"articles published number: "+d.y2000 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 660)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2001);}).attr("cy",function(d) {return yScale(d.y2001);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2001,d.y2001]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2001+"<br/>"+"articles published number: "+d.y2001 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 700)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2002);}).attr("cy",function(d) {return yScale(d.y2002);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2002,d.y2002]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2002+"<br/>"+"articles published number: "+d.y2002 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 740)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2003);}).attr("cy",function(d) {return yScale(d.y2003);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2003,d.y2003]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2003+"<br/>"+"articles published number: "+d.y2003 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 780)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2004);}).attr("cy",function(d) {return yScale(d.y2004);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2004,d.y2004]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2004+"<br/>"+"articles published number: "+d.y2004 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+
+		svg.append("text")
+	.attr("x", 820)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2005);}).attr("cy",function(d) {return yScale(d.y2005);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2005,d.y2005]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2005+"<br/>"+"articles published number: "+d.y2005 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 860)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2006);}).attr("cy",function(d) {return yScale(d.y2006);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2006,d.y2006]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2006+"<br/>"+"articles published number: "+d.y2006 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 900)             
+	.attr("y", 380)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2007);}).attr("cy",function(d) {return yScale(d.y2007);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2007,d.y2007]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2007+"<br/>"+"articles published number: "+d.y2007 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 20)             
+	.attr("y", 400)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2008);}).attr("cy",function(d) {return yScale(d.y2008);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2008,d.y2008]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2008+"<br/>"+"articles published number: "+d.y2008 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 60)             
+	.attr("y", 400)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2009);}).attr("cy",function(d) {return yScale(d.y2009);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2009,d.y2009]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2009+"<br/>"+"articles published number: "+d.y2009 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	 svg.append("text")
+	.attr("x", 100)             
+	.attr("y", 400)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2010);}).attr("cy",function(d) {return yScale(d.y2010);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2010,d.y2010]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2010+"<br/>"+"articles published number: "+d.y2010 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		;
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	svg.append("text")
+	.attr("x", 140)             
+	.attr("y", 400)    
+	.style("fill", "steelblue")         
+	.on("click", function(){
+		
+		
+		
+		d3.selectAll("circle").attr("cx",function(d) {return xScale(d.x2011);}).attr("cy",function(d) {return yScale(d.y2011);})
+				 .on("mouseover",function(d,i){
+d3.select(this).attr("fill", "purple");
+d3.select("body").select("#instr").text([d.country,d.x2011,d.y2011]);
+
+tooltip.html( " Country: "+ d.country +"<br/>"+"GDP: "+d.x2011+"<br/>"+"articles published number: "+d.y2011 )
+.style("left",(d3.event.pageX)+"px")
+.style("top",(d3.event.pageY+20)+"px")
+.style("opacity",0.5)})
+
+ .on("mousemove",function(d){
+tooltip.style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY + 20) + "px");
+})
+
+				  
+
+.on("mouseout",function(){
+d3.select(this).attr("fill","steelblue");
+tooltip.style("opacity",0.0);
+});
+
+		
+		
+		
+		
+		
+	
+	})
+	.text(++yearnumber);
+	
+	
+	
+	
+	
+	
+svg.append("g")
+    .attr("class","axis")
+    .attr("transform","translate(0,"+(h-padding)+")")
+    .call(xAxis)
+    .transition()
+    .duration(3009)
+    .attr("fill","darkblue")
+svg.append("g")
+    .attr("class","axis")
+    .attr("transform","translate("+padding+",0)")
+    .call(yAxis)
+    .transition()
+    .duration(3009)
+    .attr("fill","orange");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+        </script>
+<p ><b>X---GDP per capita    Y---Scientific and technical journal articles</b></p>
+<p><b>Scientific and technical journal articles refer to the number of scientific and engineering articles published in the following fields: physics, biology, chemistry, mathematics, clinical medicine, biomedical research, engineering and technology, and earth and space sciences.</b></p>
+<p><b>GDP per capita is gross domestic product divided by midyear population.</b></p>
+<p>*country, *articles published number, *GDP per capita</p>
+<p id=instr ><b>The figure shows here</b></p>
+
+ 
+
+
+    </body>
+</html>
